@@ -44,7 +44,6 @@ function Calendar ({
       showOutsideDays={showOutsideDays}
       className={cn('p-2 xl:p-3', className)}
       formatters={{
-        // eslint-disable-next-line
         formatCaption: (date) => `${calendarLocale.monthNames[date.getMonth()]} ${date.getFullYear()}`,
         formatWeekdayName: (date) => calendarLocale.weekdayNames[date.getDay()].substring(0, 2)
       }}
@@ -85,8 +84,8 @@ function Calendar ({
         ...classNames
       }}
       components={{
-        IconLeft: ({ ...props }) => <ChevronLeftIcon className="h-5 w-5" />,
-        IconRight: ({ ...props }) => <ChevronRightIcon className="h-5 w-5" />
+        IconLeft: () => <ChevronLeftIcon className="h-5 w-5" />,
+        IconRight: () => <ChevronRightIcon className="h-5 w-5" />
       }}
       {...restProps}
     />

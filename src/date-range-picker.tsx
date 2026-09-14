@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 'use client'
 
 import React, { type FC, useState, useEffect, useRef } from 'react'
@@ -137,7 +136,6 @@ const LOCALE_TRANSLATIONS: Record<string, TranslationObject> = {
 }
 
 // Mapeamento de ícones para cada preset
-// eslint-disable-next-line
 const PRESET_ICONS: Record<string, React.ComponentType<{ width?: number; height?: number; className?: string }>> = {
   yesterday: ArrowLeftIcon,
   last7: DoubleArrowLeftIcon,
