@@ -12,7 +12,6 @@ module.exports = {
     '^@/lib/(.*)$': '<rootDir>/lib/$1',
     '^@/src/(.*)$': '<rootDir>/src/$1',
   },
-  collectCoverage: true,
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     'lib/**/*.ts',

@@ -30,10 +30,19 @@ describe('DateRangePicker', () => {
     render(
       <DateRangePicker locale="pt-BR" initialDateFrom="2023-01-01" initialDateTo="2023-12-31" />
     )
-    fireEvent.click(screen.getAllByRole('button')[0])
+    fireEvent.click(screen.getByRole('button', { name: /2023/i }))
     expect(screen.getByRole('button', { name: /Atualizar/i })).toBeVisible()
     expect(screen.getByRole('button', { name: /Cancelar/i })).toBeVisible()
     expect(screen.getByRole('switch', { name: /Comparar/i })).toBeVisible()
+  })
+
+  it('falls back to english for unsupported locale', () => {
+    render(
+      <DateRangePicker locale="fr-FR" initialDateFrom="2023-01-01" initialDateTo="2023-12-31" />
+    )
+    fireEvent.click(screen.getByRole('button', { name: /2023/i }))
+    expect(screen.getByRole('button', { name: /Yesterday/i })).toBeVisible()
+    expect(screen.getByRole('button', { name: /Update/i })).toBeVisible()
   })
 
   it('calls onUpdate when value changes', async () => {
