@@ -1,121 +1,117 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useMemo, useState } from 'react'
+import { DateRangePicker } from '../../src'
+
+type PickerValues = {
+  range: {
+    from: Date
+    to?: Date
+  }
+  rangeCompare?: {
+    from: Date
+    to?: Date
+  }
+}
+
+function formatValue(value?: PickerValues) {
+  if (!value) {
+    return 'No selection yet.'
+  }
+
+  const output = {
+    range: {
+      from: value.range.from.toISOString().slice(0, 10),
+      to: value.range.to ? value.range.to.toISOString().slice(0, 10) : null
+    },
+    rangeCompare: value.rangeCompare
+      ? {
+          from: value.rangeCompare.from.toISOString().slice(0, 10),
+          to: value.rangeCompare.to ? value.rangeCompare.to.toISOString().slice(0, 10) : null
+        }
+      : null
+  }
+
+  return JSON.stringify(output, null, 2)
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [locale, setLocale] = useState('en-US')
+  const [showCompare, setShowCompare] = useState(true)
+  const [presetPosition, setPresetPosition] = useState<'left' | 'right' | 'none'>('right')
+  const [align, setAlign] = useState<'start' | 'center' | 'end'>('end')
+  const [latestValue, setLatestValue] = useState<PickerValues>()
+
+  const output = useMemo(() => formatValue(latestValue), [latestValue])
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <main className="page">
+      <header>
+        <h1>@woli/date-range-picker</h1>
+        <p>Interactive documentation with a live DateRangePicker example.</p>
+      </header>
+
+      <section className="card">
+        <h2>Playground</h2>
+
+        <div className="controls">
+          <label>
+            Locale
+            <select value={locale} onChange={(event) => setLocale(event.target.value)}>
+              <option value="en-US">English (en-US)</option>
+              <option value="pt-BR">Português (pt-BR)</option>
+              <option value="es-ES">Español (es-ES)</option>
+            </select>
+          </label>
+
+          <label>
+            Presets
+            <select
+              value={presetPosition}
+              onChange={(event) => setPresetPosition(event.target.value as 'left' | 'right' | 'none')}
+            >
+              <option value="right">Right</option>
+              <option value="left">Left</option>
+              <option value="none">Hidden</option>
+            </select>
+          </label>
+
+          <label>
+            Popover align
+            <select value={align} onChange={(event) => setAlign(event.target.value as 'start' | 'center' | 'end')}>
+              <option value="start">Start</option>
+              <option value="center">Center</option>
+              <option value="end">End</option>
+            </select>
+          </label>
+
+          <label className="checkbox">
+            <input
+              type="checkbox"
+              checked={showCompare}
+              onChange={(event) => setShowCompare(event.target.checked)}
+            />
+            Enable compare
+          </label>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
+
+        <div className="demo">
+          <DateRangePicker
+            align={align}
+            locale={locale}
+            presetPosition={presetPosition}
+            showCompare={showCompare}
+            onUpdate={(values) => setLatestValue(values as PickerValues)}
+          />
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
+
+        <h3>onUpdate output</h3>
+        <pre>{output}</pre>
       </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
+      <section className="card">
+        <h2>Use locally</h2>
+        <pre>npm install @woli/date-range-picker</pre>
       </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+    </main>
   )
 }
 
