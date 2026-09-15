@@ -6,11 +6,16 @@ module.exports = {
       tsconfig: {
         jsx: 'react',
       },
-      isolatedModules: true,
     }],
   },
   moduleNameMapper: {
     '^@/lib/(.*)$': '<rootDir>/lib/$1',
     '^@/src/(.*)$': '<rootDir>/src/$1',
   },
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    'lib/**/*.ts',
+    '!src/**/*.test.{ts,tsx}',
+    '!src/index.ts',
+  ],
 };
