@@ -1,4 +1,4 @@
-# `@woli/date-range-picker` 
+# `date-range-picker-react` 
 
 Enhanced DateRangePicker component built for [Shadcn](https://ui.shadcn.com/) using [Radix UI](https://www.radix-ui.com/) and [Tailwind CSS](https://tailwindcss.com/). 
 
@@ -15,7 +15,7 @@ Enhanced DateRangePicker component built for [Shadcn](https://ui.shadcn.com/) us
 Install via npm:
 
 ```bash
-npm install @woli/date-range-picker
+npm install date-range-picker-react
 ```
 
 ## Docs Website (Live Example)
@@ -71,7 +71,7 @@ Next, copy and paste the code from the `/src` directory for [`DateInput`](https:
 ### Basic Usage
 
 ```jsx
-import { DateRangePicker } from '@woli/date-range-picker'
+import { DateRangePicker } from 'date-range-picker-react'
 
 <DateRangePicker
   onUpdate={(values) => console.log(values)}

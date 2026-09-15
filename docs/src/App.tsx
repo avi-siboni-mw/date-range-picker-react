@@ -45,7 +45,7 @@ function App() {
   return (
     <main className="page">
       <header>
-        <h1>@woli/date-range-picker</h1>
+        <h1>date-range-picker-react</h1>
         <p>Interactive documentation with a live DateRangePicker example.</p>
       </header>
 
@@ -109,7 +109,7 @@ function App() {
 
       <section className="card">
         <h2>Use locally</h2>
-        <pre>npm install @woli/date-range-picker</pre>
+        <pre>npm install date-range-picker-react</pre>
       </section>
     </main>
   )
