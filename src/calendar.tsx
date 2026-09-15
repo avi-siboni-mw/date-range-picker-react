@@ -50,37 +50,39 @@ function Calendar ({
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
         month: 'space-y-4',
-        caption: 'flex justify-center pt-1 relative items-center',
+        month_caption: 'flex justify-center pt-1 relative items-center',
         caption_label: 'text-base font-semibold',
         nav: 'space-x-1 flex items-center',
-        nav_button: cn(
+        button_previous: cn(
           buttonVariants({ variant: 'outline' }),
-          'h-8 w-8 bg-transparent p-0 opacity-80 hover:opacity-100 hover:bg-accent transition-all'
+          'absolute left-1 h-8 w-8 bg-transparent p-0 opacity-80 hover:opacity-100 hover:bg-accent transition-all'
         ),
-        nav_button_previous: 'absolute left-1',
-        nav_button_next: 'absolute right-1',
-        table: 'w-full border-collapse space-y-1',
-        head_row: 'flex',
-        head_cell:
+        button_next: cn(
+          buttonVariants({ variant: 'outline' }),
+          'absolute right-1 h-8 w-8 bg-transparent p-0 opacity-80 hover:opacity-100 hover:bg-accent transition-all'
+        ),
+        month_grid: 'w-full border-collapse space-y-1',
+        weekdays: 'flex',
+        weekday:
           'text-muted-foreground rounded-md w-7 xl:w-8 font-normal text-[0.8rem]',
-        row: 'flex w-full mt-2 rounded-lg overflow-hidden',
-        cell: 'text-center text-sm p-0 relative [&:has([aria-selected])]:bg-primary/20 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
-        day: cn(
+        week: 'flex w-full mt-2 rounded-lg overflow-hidden',
+        day: 'text-center text-sm p-0 relative [&:has([aria-selected])]:bg-primary/20 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
+        day_button: cn(
           buttonVariants({ variant: 'ghost' }),
           'h-7 w-7 xl:h-8 xl:w-8 p-0 font-normal aria-selected:opacity-100'
         ),
-        day_selected:
+        selected:
           'bg-primary hover:bg-primary/90 focus:bg-primary/90 text-primary-foreground',
-        day_today: 'font-semibold',
-        day_outside: 'text-muted-foreground opacity-40 invisible',
-        day_disabled: 'text-muted-foreground opacity-30 line-through bg-muted/30',
-        day_range_middle:
+        today: 'font-semibold',
+        outside: 'text-muted-foreground opacity-40 invisible',
+        disabled: 'text-muted-foreground opacity-30 line-through bg-muted/30',
+        range_middle:
           'aria-selected:bg-primary/20 aria-selected:text-foreground aria-selected:font-medium rounded-none border-t border-b border-primary/20',
-        day_range_start:
+        range_start:
           'bg-primary hover:bg-primary/90 focus:bg-primary/90 text-primary-foreground rounded-l-md',
-        day_range_end:
+        range_end:
           'bg-primary hover:bg-primary/90 focus:bg-primary/90 text-primary-foreground rounded-r-md',
-        day_hidden: 'invisible',
+        hidden: 'invisible',
         ...classNames
       }}
       components={{
