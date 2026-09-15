@@ -18,6 +18,16 @@ Install via npm:
 npm install @woli/date-range-picker
 ```
 
+## Docs Website (Live Example)
+
+This repository includes a docs site with an interactive playground in `/docs`.
+
+- Run locally: `npm run docs:dev`
+- Build static docs: `npm run docs:build`
+- Preview build: `npm run docs:preview`
+
+GitHub Pages deployment is automated with `.github/workflows/docs.yml`.
+
 The `DateRangePicker` depends on the following components from shadcn:
 
 - [Button](https://ui.shadcn.com/docs/components/button)
@@ -164,4 +174,3 @@ interface TranslationObject {
   }
 }
 ```
-
