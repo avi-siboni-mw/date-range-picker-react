@@ -2,13 +2,15 @@
   "name": "date-range-picker-react",
   "version": "1.7.0",
   "description": "Enhanced DateRangePicker component for shadcn with Portuguese localization, DD/MM/YYYY support, configurable preset positioning, and improved styling. Built with Radix UI and Tailwind CSS.",
-  "main": "./dist/src/index.js",
-  "types": "./dist/src/index.d.ts",
+  "main": "./dist/cjs/src/index.js",
+  "module": "./dist/esm/src/index.js",
+  "types": "./dist/esm/src/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/src/index.d.ts",
-      "require": "./dist/src/index.js",
-      "default": "./dist/src/index.js"
+      "types": "./dist/esm/src/index.d.ts",
+      "import": "./dist/esm/src/index.js",
+      "require": "./dist/cjs/src/index.js",
+      "default": "./dist/esm/src/index.js"
     }
   },
   "sideEffects": false,
@@ -18,7 +20,9 @@
     "LICENSE.md"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "rm -rf dist && npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc -p tsconfig.build.cjs.json",
+    "build:esm": "tsc -p tsconfig.build.esm.json && node ./scripts/prepare-esm.mjs",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",

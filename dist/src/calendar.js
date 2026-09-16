@@ -40,10 +40,8 @@ function Calendar(_a) {
             ? react_icons_1.ChevronRightIcon
             : orientation === 'down'
                 ? react_icons_1.ChevronDownIcon
-                : orientation === 'up'
-                    ? react_icons_1.ChevronUpIcon
-                    : react_icons_1.ChevronLeftIcon;
-        return (0, jsx_runtime_1.jsx)(Icon, Object.assign({}, props, { className: (0, utils_1.cn)('h-5 w-5', className) }));
+                : react_icons_1.ChevronLeftIcon;
+        return (0, jsx_runtime_1.jsx)(Icon, Object.assign({}, props, { "data-orientation": orientation, className: (0, utils_1.cn)('h-5 w-5', className) }));
     };
     return ((0, jsx_runtime_1.jsx)(react_day_picker_1.DayPicker, Object.assign({ showOutsideDays: showOutsideDays, className: (0, utils_1.cn)('p-2 xl:p-3', className), formatters: {
             formatCaption: (date) => `${calendarLocale.monthNames[date.getMonth()]} ${date.getFullYear()}`,
