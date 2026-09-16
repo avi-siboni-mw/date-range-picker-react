@@ -38,7 +38,7 @@ This repository includes a docs site with an interactive playground in `/docs`.
 
 GitHub Pages deployment is automated with `.github/workflows/docs.yml`.
 
-All runtime dependencies used by the component, including Radix UI primitives, are installed automatically with the package.
+The package installs its Radix UI and utility runtime dependencies automatically, but your app must already provide compatible `react` and `react-dom` versions.
 
 
 ## Props
