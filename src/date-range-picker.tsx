@@ -242,7 +242,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
   presetPosition = 'right',
   minDate: propMinDate,
   maxDate: propMaxDate
-}): JSX.Element => {
+}): React.JSX.Element => {
   const translations = getTranslations(locale, customTranslations)
   const PRESETS = getPresets(translations)
 
@@ -294,8 +294,8 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
   )
 
   // Refs to store the values of range and rangeCompare when the date picker is opened
-  const openedRangeRef = useRef<DateRange | undefined>()
-  const openedRangeCompareRef = useRef<DateRange | undefined>()
+  const openedRangeRef = useRef<DateRange | undefined>(undefined)
+  const openedRangeCompareRef = useRef<DateRange | undefined>(undefined)
 
   const [selectedPreset, setSelectedPreset] = useState<string | undefined>(undefined)
 
@@ -472,7 +472,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
     preset: string
     label: string
     isSelected: boolean
-  }): JSX.Element => {
+  }): React.JSX.Element => {
     const PresetIcon = PRESET_ICONS[preset] || CalendarIcon
 
     return (
@@ -623,7 +623,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
                       onBlur={(validatedDate) => {
                         // After blur validation, re-validate entire range
                         let validFrom = validatedDate
-                        let validTo = range.to
+                        let validTo = range.to ?? validatedDate
 
                         // Clamp both dates to min/max boundaries
                         if (minDate && validFrom < minDate) validFrom = minDate
@@ -632,7 +632,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
                         if (maxDate && validTo > maxDate) validTo = maxDate
 
                         // Update state if any changes occurred
-                        if (validFrom.getTime() !== validatedDate.getTime() || validTo.getTime() !== range.to.getTime()) {
+                        if (validFrom.getTime() !== validatedDate.getTime() || validTo.getTime() !== (range.to ?? validatedDate).getTime()) {
                           setRange({ from: validFrom, to: validTo })
                         }
                       }}
@@ -698,7 +698,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
                           if (rangeCompare) {
                             // After blur validation, re-validate compare range
                             let validFrom = validatedDate
-                            let validTo = rangeCompare.to
+                            let validTo = rangeCompare.to ?? validatedDate
 
                             // Clamp both dates to min/max boundaries
                             if (minDate && validFrom < minDate) validFrom = minDate
@@ -707,7 +707,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
                             if (maxDate && validTo > maxDate) validTo = maxDate
 
                             // Update state if any changes occurred
-                            if (validFrom.getTime() !== validatedDate.getTime() || validTo.getTime() !== rangeCompare.to.getTime()) {
+                            if (validFrom.getTime() !== validatedDate.getTime() || validTo.getTime() !== (rangeCompare.to ?? validatedDate).getTime()) {
                               setRangeCompare({ from: validFrom, to: validTo })
                             }
                           }
@@ -844,7 +844,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
                   return date
                 }
 
-                const validFrom = clampDate(range.from)
+                const validFrom = clampDate(range.from) ?? range.from
                 const validTo = clampDate(range.to)
 
                 onUpdate?.({

@@ -1,8 +1,9 @@
 'use client'
 
 import * as React from 'react'
-import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons'
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from '@radix-ui/react-icons'
 import { DayPicker } from 'react-day-picker'
+import type { ChevronProps } from 'react-day-picker'
 
 import { cn } from '../lib/utils'
 import { buttonVariants } from './button'
@@ -37,8 +38,26 @@ function Calendar ({
   showOutsideDays = true,
   customLocale = 'en-US',
   ...restProps
-}: CalendarProps): JSX.Element {
+}: CalendarProps): React.JSX.Element {
   const calendarLocale = getCalendarLocale(customLocale)
+
+  const ChevronIcon = ({
+    orientation = 'left',
+    className,
+    ...props
+  }: ChevronProps): React.JSX.Element => {
+    const Icon =
+      orientation === 'right'
+        ? ChevronRightIcon
+        : orientation === 'down'
+          ? ChevronDownIcon
+          : orientation === 'up'
+            ? ChevronUpIcon
+            : ChevronLeftIcon
+
+    return <Icon {...props} className={cn('h-5 w-5', className)} />
+  }
+
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -86,8 +105,7 @@ function Calendar ({
         ...classNames
       }}
       components={{
-        IconLeft: (props) => <ChevronLeftIcon {...props} className={cn('h-5 w-5', props.className)} />,
-        IconRight: (props) => <ChevronRightIcon {...props} className={cn('h-5 w-5', props.className)} />
+        Chevron: ChevronIcon
       }}
       {...restProps}
     />
