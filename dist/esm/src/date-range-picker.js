@@ -478,12 +478,18 @@ export const DateRangePicker = ({ initialDateFrom = new Date(new Date().setHours
                                     setIsOpen(false);
                                     resetValues();
                                 }, variant: "ghost", className: "rounded-md", children: translations.actions.cancel }), _jsx(Button, { onClick: () => {
-                                    var _a;
                                     setIsOpen(false);
                                     if (!areRangesEqual(range, openedRangeRef.current) ||
                                         !areRangesEqual(rangeCompare, openedRangeCompareRef.current)) {
                                         // Validate and clamp dates to allowed range
-                                        const clampDate = (date) => {
+                                        const clampRequiredDate = (date) => {
+                                            if (date < minDate)
+                                                return minDate;
+                                            if (date > maxDate)
+                                                return maxDate;
+                                            return date;
+                                        };
+                                        const clampOptionalDate = (date) => {
                                             if (!date)
                                                 return date;
                                             if (date < minDate)
@@ -492,8 +498,8 @@ export const DateRangePicker = ({ initialDateFrom = new Date(new Date().setHours
                                                 return maxDate;
                                             return date;
                                         };
-                                        const validFrom = (_a = clampDate(range.from)) !== null && _a !== void 0 ? _a : range.from;
-                                        const validTo = clampDate(range.to);
+                                        const validFrom = clampRequiredDate(range.from);
+                                        const validTo = clampOptionalDate(range.to);
                                         onUpdate === null || onUpdate === void 0 ? void 0 : onUpdate({
                                             range: {
                                                 from: validFrom,
