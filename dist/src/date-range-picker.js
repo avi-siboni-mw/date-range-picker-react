@@ -224,8 +224,8 @@ const DateRangePicker = ({ initialDateFrom = new Date(new Date().setHours(0, 0, 
         }
         : undefined);
     // Refs to store the values of range and rangeCompare when the date picker is opened
-    const openedRangeRef = (0, react_1.useRef)();
-    const openedRangeCompareRef = (0, react_1.useRef)();
+    const openedRangeRef = (0, react_1.useRef)(undefined);
+    const openedRangeCompareRef = (0, react_1.useRef)(undefined);
     const [selectedPreset, setSelectedPreset] = (0, react_1.useState)(undefined);
     const [isSmallScreen, setIsSmallScreen] = (0, react_1.useState)(typeof window !== 'undefined' ? window.innerWidth < 1024 : false);
     (0, react_1.useEffect)(() => {
@@ -407,9 +407,10 @@ const DateRangePicker = ({ initialDateFrom = new Date(new Date().setHours(0, 0, 
                                                                         const toDate = range.to == null || date > range.to ? date : range.to;
                                                                         setRange((prevRange) => (Object.assign(Object.assign({}, prevRange), { from: date, to: toDate })));
                                                                     }, onBlur: (validatedDate) => {
+                                                                        var _a, _b;
                                                                         // After blur validation, re-validate entire range
                                                                         let validFrom = validatedDate;
-                                                                        let validTo = range.to;
+                                                                        let validTo = (_a = range.to) !== null && _a !== void 0 ? _a : validatedDate;
                                                                         // Clamp both dates to min/max boundaries
                                                                         if (minDate && validFrom < minDate)
                                                                             validFrom = minDate;
@@ -420,7 +421,7 @@ const DateRangePicker = ({ initialDateFrom = new Date(new Date().setHours(0, 0, 
                                                                         if (maxDate && validTo > maxDate)
                                                                             validTo = maxDate;
                                                                         // Update state if any changes occurred
-                                                                        if (validFrom.getTime() !== validatedDate.getTime() || validTo.getTime() !== range.to.getTime()) {
+                                                                        if (validFrom.getTime() !== validatedDate.getTime() || validTo.getTime() !== ((_b = range.to) !== null && _b !== void 0 ? _b : validatedDate).getTime()) {
                                                                             setRange({ from: validFrom, to: validTo });
                                                                         }
                                                                     }, locale: locale, minDate: minDate, maxDate: maxDate }), (0, jsx_runtime_1.jsx)("div", { className: "py-1", children: "-" }), (0, jsx_runtime_1.jsx)(date_input_1.DateInput, { value: range.to, onChange: (date) => {
@@ -457,10 +458,11 @@ const DateRangePicker = ({ initialDateFrom = new Date(new Date().setHours(0, 0, 
                                                                             });
                                                                         }
                                                                     }, onBlur: (validatedDate) => {
+                                                                        var _a, _b;
                                                                         if (rangeCompare) {
                                                                             // After blur validation, re-validate compare range
                                                                             let validFrom = validatedDate;
-                                                                            let validTo = rangeCompare.to;
+                                                                            let validTo = (_a = rangeCompare.to) !== null && _a !== void 0 ? _a : validatedDate;
                                                                             // Clamp both dates to min/max boundaries
                                                                             if (minDate && validFrom < minDate)
                                                                                 validFrom = minDate;
@@ -471,7 +473,7 @@ const DateRangePicker = ({ initialDateFrom = new Date(new Date().setHours(0, 0, 
                                                                             if (maxDate && validTo > maxDate)
                                                                                 validTo = maxDate;
                                                                             // Update state if any changes occurred
-                                                                            if (validFrom.getTime() !== validatedDate.getTime() || validTo.getTime() !== rangeCompare.to.getTime()) {
+                                                                            if (validFrom.getTime() !== validatedDate.getTime() || validTo.getTime() !== ((_b = rangeCompare.to) !== null && _b !== void 0 ? _b : validatedDate).getTime()) {
                                                                                 setRangeCompare({ from: validFrom, to: validTo });
                                                                             }
                                                                         }
@@ -512,6 +514,7 @@ const DateRangePicker = ({ initialDateFrom = new Date(new Date().setHours(0, 0, 
                                     setIsOpen(false);
                                     resetValues();
                                 }, variant: "ghost", className: "rounded-md", children: translations.actions.cancel }), (0, jsx_runtime_1.jsx)(button_1.Button, { onClick: () => {
+                                    var _a;
                                     setIsOpen(false);
                                     if (!areRangesEqual(range, openedRangeRef.current) ||
                                         !areRangesEqual(rangeCompare, openedRangeCompareRef.current)) {
@@ -525,7 +528,7 @@ const DateRangePicker = ({ initialDateFrom = new Date(new Date().setHours(0, 0, 
                                                 return maxDate;
                                             return date;
                                         };
-                                        const validFrom = clampDate(range.from);
+                                        const validFrom = (_a = clampDate(range.from)) !== null && _a !== void 0 ? _a : range.from;
                                         const validTo = clampDate(range.to);
                                         onUpdate === null || onUpdate === void 0 ? void 0 : onUpdate({
                                             range: {

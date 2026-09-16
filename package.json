@@ -2,13 +2,13 @@
   "name": "date-range-picker-react",
   "version": "1.7.0",
   "description": "Enhanced DateRangePicker component for shadcn with Portuguese localization, DD/MM/YYYY support, configurable preset positioning, and improved styling. Built with Radix UI and Tailwind CSS.",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "default": "./dist/index.js"
+      "types": "./dist/src/index.d.ts",
+      "require": "./dist/src/index.js",
+      "default": "./dist/src/index.js"
     }
   },
   "sideEffects": false,
