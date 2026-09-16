@@ -4,9 +4,10 @@
     "rootDir": "."
   },
   "include": [
+    "lib/**/*.tsx",
+    "lib/**/*.ts",
     "src/**/*.ts",
-    "src/**/*.tsx",
-    "lib/**/*.ts"
+    "src/**/*.tsx"
   ],
   "exclude": [
     "src/**/*.test.ts",

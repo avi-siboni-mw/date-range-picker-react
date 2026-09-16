@@ -837,15 +837,21 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
                 !areRangesEqual(rangeCompare, openedRangeCompareRef.current)
               ) {
                 // Validate and clamp dates to allowed range
-                const clampDate = (date: Date | undefined): Date | undefined => {
+                const clampRequiredDate = (date: Date): Date => {
+                  if (date < minDate) return minDate
+                  if (date > maxDate) return maxDate
+                  return date
+                }
+
+                const clampOptionalDate = (date: Date | undefined): Date | undefined => {
                   if (!date) return date
                   if (date < minDate) return minDate
                   if (date > maxDate) return maxDate
                   return date
                 }
 
-                const validFrom = clampDate(range.from) ?? range.from
-                const validTo = clampDate(range.to)
+                const validFrom = clampRequiredDate(range.from)
+                const validTo = clampOptionalDate(range.to)
 
                 onUpdate?.({
                   range: {
