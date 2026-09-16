@@ -18,6 +18,16 @@ Install via npm:
 npm install date-range-picker-react
 ```
 
+The package expects your app to provide React and ReactDOM, and it is designed to be used in projects that already have Tailwind CSS and shadcn-compatible styling set up.
+
+## Usage
+
+Import the published component directly from the package:
+
+```jsx
+import { DateRangePicker } from 'date-range-picker-react'
+```
+
 ## Docs Website (Live Example)
 
 This repository includes a docs site with an interactive playground in `/docs`.
@@ -28,27 +38,7 @@ This repository includes a docs site with an interactive playground in `/docs`.
 
 GitHub Pages deployment is automated with `.github/workflows/docs.yml`.
 
-The `DateRangePicker` depends on the following components from shadcn:
-
-- [Button](https://ui.shadcn.com/docs/components/button)
-- [Calendar](https://ui.shadcn.com/docs/components/calendar)
-- [Label](https://ui.shadcn.com/docs/components/label)
-- [Popover](https://ui.shadcn.com/docs/components/popover)
-- [Switch](https://ui.shadcn.com/docs/components/switch)
-
-If you are using the CLI for installation, you can do this:
-
-```
-npx shadcn-ui@latest add button calendar label popover switch
-```
-
-The DateRangePicker uses [icons from Radix UI](https://icons.radix-ui.com/) so you will need to install that or update the component to use a different library.
-
-```
-npm install @radix-ui/react-icons
-```
-
-Next, copy and paste the code from the `/src` directory for [`DateInput`](https://github.com/johnpolacek/date-range-picker-for-shadcn/blob/main/src/date-input.tsx) and [`DateRangePicker`](https://github.com/johnpolacek/date-range-picker-for-shadcn/blob/main/src/date-range-picker.tsx) into your project and customize to your needs. The code is yours.
+The package installs its Radix UI and utility runtime dependencies automatically, but your app must already provide compatible `react` and `react-dom` versions.
 
 
 ## Props
