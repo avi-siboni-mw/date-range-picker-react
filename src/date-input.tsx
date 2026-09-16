@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState, type ChangeEvent, type FocusEvent, type KeyboardEvent, type JSX } from 'react'
 
 interface DateInputProps {
   value?: Date
@@ -22,9 +22,9 @@ const usesDayMonthYear = (locale: string): boolean => {
   return dayFirstLocales.some(l => locale.startsWith(l.split('-')[0]) && locale !== 'en-US')
 }
 
-const DateInput: React.FC<DateInputProps> = ({ value, onChange, onBlur, locale = 'en-US', minDate, maxDate }) => {
+const DateInput = ({ value, onChange, onBlur, locale = 'en-US', minDate, maxDate }: DateInputProps): JSX.Element => {
   const isDayFirst = usesDayMonthYear(locale)
-  const [date, setDate] = React.useState<DateParts>(() => {
+  const [date, setDate] = useState<DateParts>(() => {
     const d = value ? new Date(value) : new Date()
     return {
       day: d.getDate(),
@@ -68,7 +68,7 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange, onBlur, locale =
   }
 
   const handleInputChange =
-    (field: keyof DateParts) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    (field: keyof DateParts) => (e: ChangeEvent<HTMLInputElement>) => {
       // Mark that user is actively editing
       isEditingRef.current = true
 
@@ -110,7 +110,7 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange, onBlur, locale =
   const initialDate = useRef<DateParts>(date)
 
   const handleBlur = (field: keyof DateParts) => (
-    e: React.FocusEvent<HTMLInputElement>
+    e: FocusEvent<HTMLInputElement>
   ): void => {
     // User finished editing, allow parent sync again
     isEditingRef.current = false
@@ -168,7 +168,7 @@ const DateInput: React.FC<DateInputProps> = ({ value, onChange, onBlur, locale =
   }
 
   const handleKeyDown =
-    (field: keyof DateParts) => (e: React.KeyboardEvent<HTMLInputElement>) => {
+    (field: keyof DateParts) => (e: KeyboardEvent<HTMLInputElement>) => {
       // Allow command (or control) combinations
       if (e.metaKey || e.ctrlKey) {
         return
