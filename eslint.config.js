@@ -32,7 +32,9 @@ module.exports = [
       '@typescript-eslint/dot-notation': 'error',
       '@typescript-eslint/prefer-optional-chain': 'off',
       '@typescript-eslint/strict-boolean-expressions': 'off',
-      'react/prop-types': 'off'
+      'react/prop-types': 'off',
+      'react/react-in-jsx-scope': 'off',
+      'react/jsx-uses-react': 'off'
     }
   }
 ]

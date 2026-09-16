@@ -1,4 +1,4 @@
-# `date-range-picker-react` 
+# `ryware-react-date-range-picker` 
 
 Enhanced DateRangePicker component built for [Shadcn](https://ui.shadcn.com/) using [Radix UI](https://www.radix-ui.com/) and [Tailwind CSS](https://tailwindcss.com/). 
 
@@ -15,7 +15,7 @@ Enhanced DateRangePicker component built for [Shadcn](https://ui.shadcn.com/) us
 Install via npm:
 
 ```bash
-npm install date-range-picker-react
+npm install ryware-react-date-range-picker
 ```
 
 The package expects your app to provide React and ReactDOM, and it is designed to be used in projects that already have Tailwind CSS and shadcn-compatible styling set up.
@@ -25,7 +25,7 @@ The package expects your app to provide React and ReactDOM, and it is designed t
 Import the published component directly from the package:
 
 ```jsx
-import { DateRangePicker } from 'date-range-picker-react'
+import { DateRangePicker } from 'ryware-react-date-range-picker'
 ```
 
 ## Docs Website (Live Example)
@@ -61,7 +61,7 @@ The package installs its Radix UI and utility runtime dependencies automatically
 ### Basic Usage
 
 ```jsx
-import { DateRangePicker } from 'date-range-picker-react'
+import { DateRangePicker } from 'ryware-react-date-range-picker'
 
 <DateRangePicker
   onUpdate={(values) => console.log(values)}

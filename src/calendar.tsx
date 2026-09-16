@@ -1,9 +1,8 @@
 'use client'
 
-import * as React from 'react'
+import { type ComponentProps, type JSX } from 'react'
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons'
-import { DayPicker } from 'react-day-picker'
-import type { ChevronProps } from 'react-day-picker'
+import { DayPicker, type ChevronProps } from 'react-day-picker'
 
 import { cn } from '../lib/utils'
 import { buttonVariants } from './button'
@@ -28,8 +27,23 @@ const getCalendarLocale = (locale: string = 'en-US'): CalendarLocale => {
   return CALENDAR_LOCALES[locale] || CALENDAR_LOCALES['en-US']
 }
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
+export type CalendarProps = ComponentProps<typeof DayPicker> & {
   customLocale?: string
+}
+
+const ChevronIcon = ({
+  orientation = 'left',
+  className,
+  ...props
+}: ChevronProps): JSX.Element => {
+  const Icon =
+    orientation === 'right'
+      ? ChevronRightIcon
+      : orientation === 'down'
+        ? ChevronDownIcon
+        : ChevronLeftIcon
+
+  return <Icon {...props} data-orientation={orientation} className={cn('h-5 w-5', className)} />
 }
 
 function Calendar ({
@@ -38,23 +52,8 @@ function Calendar ({
   showOutsideDays = true,
   customLocale = 'en-US',
   ...restProps
-}: CalendarProps): React.JSX.Element {
+}: CalendarProps): JSX.Element {
   const calendarLocale = getCalendarLocale(customLocale)
-
-  const ChevronIcon = ({
-    orientation = 'left',
-    className,
-    ...props
-  }: ChevronProps): React.JSX.Element => {
-    const Icon =
-      orientation === 'right'
-        ? ChevronRightIcon
-        : orientation === 'down'
-          ? ChevronDownIcon
-          : ChevronLeftIcon
-
-    return <Icon {...props} data-orientation={orientation} className={cn('h-5 w-5', className)} />
-  }
 
   return (
     <DayPicker

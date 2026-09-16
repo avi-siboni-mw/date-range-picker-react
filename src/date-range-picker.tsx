@@ -1,6 +1,6 @@
 'use client'
 
-import React, { type FC, useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo, type ComponentType, type JSX } from 'react'
 import { Button } from './button'
 import { Popover, PopoverContent, PopoverTrigger } from './popover'
 import { Calendar } from './calendar'
@@ -136,7 +136,7 @@ const LOCALE_TRANSLATIONS: Record<string, TranslationObject> = {
 }
 
 // Mapeamento de ícones para cada preset
-const PRESET_ICONS: Record<string, React.ComponentType<{ width?: number; height?: number; className?: string }>> = {
+const PRESET_ICONS: Record<string, ComponentType<{ width?: number; height?: number; className?: string }>> = {
   yesterday: ArrowLeftIcon,
   last7: DoubleArrowLeftIcon,
   last30: TimerIcon,
@@ -227,7 +227,8 @@ const getPresets = (translations: TranslationObject): Preset[] => [
 ]
 
 /** The DateRangePicker component allows a user to select a range of dates */
-export const DateRangePicker: FC<DateRangePickerProps> & {
+export const DateRangePicker: ((props: DateRangePickerProps) => JSX.Element) & {
+  displayName: string
   filePath: string
 } = ({
   initialDateFrom = new Date(new Date().setHours(0, 0, 0, 0)),
@@ -242,12 +243,12 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
   presetPosition = 'right',
   minDate: propMinDate,
   maxDate: propMaxDate
-}): React.JSX.Element => {
+}): JSX.Element => {
   const translations = getTranslations(locale, customTranslations)
   const PRESETS = getPresets(translations)
 
   // Calculate min and max dates from props or use defaults
-  const { minDate, maxDate } = React.useMemo(() => {
+  const { minDate, maxDate } = useMemo(() => {
     const now = new Date()
 
     // Helper to convert string/Date to Date object
@@ -472,7 +473,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
     preset: string
     label: string
     isSelected: boolean
-  }): React.JSX.Element => {
+  }): JSX.Element => {
     const PresetIcon = PRESET_ICONS[preset] || CalendarIcon
 
     return (

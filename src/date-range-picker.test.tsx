@@ -1,21 +1,25 @@
-import React from 'react'
+import type { ComponentProps, MouseEvent, ReactElement, ReactNode } from 'react'
 import '@testing-library/jest-dom'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { DateRangePicker } from './date-range-picker'
 
 jest.mock('./calendar', () => {
-  const React = require('react') as typeof import('react')
+  const { createElement } = jest.requireActual<typeof import('react')>('react')
   return {
-    Calendar: () => React.createElement('div', { 'data-testid': 'calendar-stub' })
+    Calendar: () => createElement('div', { 'data-testid': 'calendar-stub' })
   }
 })
 
 jest.mock('./popover', () => {
-  const React = require('react') as typeof import('react')
-  const { createContext, useContext, createElement, cloneElement } = React
+  const {
+    cloneElement,
+    createContext,
+    createElement,
+    useContext
+  } = jest.requireActual<typeof import('react')>('react')
   const PopoverContext = createContext({
     open: false,
-    onOpenChange: (_open: boolean) => {}
+    onOpenChange: () => {}
   })
 
   return {
@@ -24,20 +28,20 @@ jest.mock('./popover', () => {
       open = false,
       onOpenChange = () => {}
     }: {
-      children: React.ReactNode
+      children: ReactNode
       open?: boolean
       onOpenChange?: (open: boolean) => void
     }) => createElement(PopoverContext.Provider, { value: { open, onOpenChange } }, children),
-    PopoverTrigger: ({ children }: { children: React.ReactElement }) => {
+    PopoverTrigger: ({ children }: { children: ReactElement }) => {
       const { open, onOpenChange } = useContext(PopoverContext)
       return cloneElement(children, {
-        onClick: (event: React.MouseEvent) => {
+        onClick: (event: MouseEvent) => {
           children.props.onClick?.(event)
           onOpenChange(!open)
         }
       })
     },
-    PopoverContent: ({ children }: { children: React.ReactNode }) => {
+    PopoverContent: ({ children }: { children: ReactNode }) => {
       const { open } = useContext(PopoverContext)
       return open ? createElement('div', null, children) : null
     }
@@ -50,7 +54,7 @@ const defaultRange = {
 }
 
 const renderPicker = (
-  props: Partial<React.ComponentProps<typeof DateRangePicker>> = {}
+  props: Partial<ComponentProps<typeof DateRangePicker>> = {}
 ): ReturnType<typeof render> => {
   return render(<DateRangePicker {...defaultRange} {...props} />)
 }
